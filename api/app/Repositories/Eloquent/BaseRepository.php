@@ -34,7 +34,7 @@ abstract class BaseRepository implements IBase, ICriteria
 
     public function find($id)
     {
-        $result = $this->model->findOrFail($id);
+        $result = $this->model->find($id);
         return $result;
     }
 

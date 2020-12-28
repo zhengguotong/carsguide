@@ -17,7 +17,7 @@ class AddItemsTable extends Migration
             $table->integerIncrements('id');
             $table->uuid('guid')->unique();
             $table->string('name');
-            $table->string('email');
+            $table->string('email')->unique();
             $table->timestamps();
         });
     }

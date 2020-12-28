@@ -13,7 +13,7 @@ cp .env.example .env
 ### Docker Containers list 
 - carsguide_fpm   PHP FPM container 
 - carsguide_nginx Nginx Container
-- carsguide_db DD Container
+- carsguide_db Mysql Container
 - carsguide_redis Redis Container
 
 

@@ -1,6 +1,7 @@
 <?php
 
 /** @var \Laravel\Lumen\Routing\Router $router */
+use Laravel\Lumen\Routing\Router;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,3 +19,5 @@ $router->get('/', function () use ($router) {
 });
 
 $router->get('/items', 'Item\ItemController@index');
+$router->post('/items', 'Item\ItemController@store');
+$router->get('/items/{id}', 'Item\ItemController@show');

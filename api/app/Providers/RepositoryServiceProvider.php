@@ -2,12 +2,8 @@
 
 namespace App\Providers;
 
-use App\Repositories\Contracts\IProperty;
-use App\Repositories\Contracts\IPropertyAnalytic;
-
-use App\Repositories\Eloquent\PropertyRepository;
-use App\Repositories\Eloquent\PropertyAnalyticRepository;
-
+use App\Repositories\Contracts\IItem;
+use App\Repositories\Eloquent\ItemRepository;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -19,7 +15,6 @@ class RepositoryServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
     }
 
     /**
@@ -29,5 +24,6 @@ class RepositoryServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->app->bind(IItem::class, ItemRepository::class);
     }
 }

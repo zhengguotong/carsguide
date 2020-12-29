@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Item;
 
+use App\Events\ItemPubSubEvent;
 use App\Http\Controllers\Controller;
 use App\Traits\ApiResponser;
 use App\Http\Resources\ItemResource;
 use App\Repositories\Contracts\IItem;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Database\QueryException;
 
 class ItemController extends Controller
 {
@@ -49,6 +51,8 @@ class ItemController extends Controller
         if (!$item) {
             return $this->errorResponse('Error in creating the item', Response::HTTP_CONFLICT);
         }
+        
+        broadcast(new ItemPubSubEvent($item, 'created'))->toOthers();
 
         return $this->successResponseWithData(new ItemResource($item), Response::HTTP_CREATED);
     }
@@ -62,5 +66,52 @@ class ItemController extends Controller
         }
 
         return $this->successResponseWithData(new ItemResource($item));
+    }
+
+    public function update(Request $request, int $id)
+    {
+        $this->validate($request, [
+            'name'  => 'string',
+            'email' => 'email',
+        ]);
+
+        $item = $this->repository->find($id);
+
+        if (!$item) {
+            return $this->errorResponse('Item Not Found', Response::HTTP_NOT_FOUND);
+        }
+
+        try {
+            $item = $this->repository->update($id, $request->all());
+        } catch (QueryException $exception) {
+            return $this->errorResponse($exception->getMessage(), Response::HTTP_BAD_REQUEST);
+        }
+
+        if (!$item) {
+            return $this->errorResponse('Error in updating item', Response::HTTP_BAD_REQUEST);
+        }
+
+        broadcast(new ItemPubSubEvent($item, 'updated'))->toOthers();
+
+        return $this->successResponseWithData(new ItemResource($item), Response::HTTP_OK);
+    }
+
+    public function destroy(int $id)
+    {
+        $item = $this->repository->find($id);
+
+        if (!$item) {
+            return $this->errorResponse('Item Not Found', Response::HTTP_NOT_FOUND);
+        }
+
+        $deleted = $this->repository->delete($id);
+
+        if (!$deleted) {
+            return $this->errorResponse('Error in deleting the item', Response::HTTP_NOT_FOUND);
+        }
+
+        broadcast(new ItemPubSubEvent($item, 'deleted'))->toOthers();
+
+        return $this->successResponseWithMessage('Item '.$id. ' deleted', Response::HTTP_ACCEPTED);
     }
 }

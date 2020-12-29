@@ -46,7 +46,11 @@ abstract class BaseRepository implements IBase, ICriteria
     public function update($id, array $data)
     {
         $record = $this->find($id);
-        return $record->update($data);
+
+        $record->fill($data);
+        $record->save();
+        
+        return $record;
     }
 
     public function delete($id)

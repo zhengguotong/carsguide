@@ -10,9 +10,10 @@
 |   +-- workflows
 |       +-- ci.yml
 +-- api <project root>
-+-- docs <project root>
++-- docs
 |   +-- api.MD 
-|   +-- api.MD 
+|   +-- item_mircoservice.postman_collection.json
+|   +-- ItemPubSubEvent.png
 +-- .gitignore
 +-- docker-compose.yml
 +-- env.example

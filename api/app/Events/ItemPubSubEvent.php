@@ -10,6 +10,12 @@ class ItemPubSubEvent implements ShouldBroadcast
     public $item;
     public $status;
 
+    /**
+     * Setup event message
+     *
+     * @param Item $item
+     * @param string $status
+     */
     public function __construct(Item $item, string $status)
     {
         $this->item = $item;

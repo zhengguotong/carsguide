@@ -28,6 +28,12 @@ class ItemController extends Controller
         $this->repository = $repository;
     }
 
+    /**
+     * Get All Items 
+     *
+     * @param Request $request
+     * @return void
+     */
     public function index(Request $request)
     {
         $per_page = self::MAX_RECORD;
@@ -39,6 +45,12 @@ class ItemController extends Controller
         return ItemResource::collection($records);
     }
 
+    /**
+     * Create new Item
+     *
+     * @param Request $request
+     * @return void
+     */
     public function store(Request $request)
     {
         $this->validate($request, [
@@ -57,6 +69,12 @@ class ItemController extends Controller
         return $this->successResponseWithData(new ItemResource($item), Response::HTTP_CREATED);
     }
 
+    /**
+     * Get an item information given by its id 
+     *
+     * @param integer $id
+     * @return void
+     */
     public function show(int $id)
     {
         $item = $this->repository->find($id);
@@ -68,6 +86,13 @@ class ItemController extends Controller
         return $this->successResponseWithData(new ItemResource($item));
     }
 
+    /**
+     * Update Item information given by its id
+     *
+     * @param Request $request
+     * @param integer $id
+     * @return void
+     */
     public function update(Request $request, int $id)
     {
         $this->validate($request, [
@@ -96,6 +121,12 @@ class ItemController extends Controller
         return $this->successResponseWithData(new ItemResource($item), Response::HTTP_OK);
     }
 
+    /**
+     * Delete an item given by its id
+     *
+     * @param integer $id
+     * @return void
+     */
     public function destroy(int $id)
     {
         $item = $this->repository->find($id);

@@ -7,7 +7,7 @@ services:
         container_name: carsguide_fpm
         depends_on:
             - db
-            - redis
+            # - redis
             - db_test
         volumes:
             - ./api:/var/www/html
@@ -55,9 +55,9 @@ services:
           MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       expose:
           - 3306
-    redis: 
-        container_name: ${SERVICE_NAME}_redis
-        build:
-          context: ./.docker/redis
-        expose:
-          - 6379
+    # redis: 
+    #     container_name: ${SERVICE_NAME}_redis
+    #     build:
+    #       context: ./.docker/redis
+    #     expose:
+    #       - 6379

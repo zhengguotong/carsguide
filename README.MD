@@ -76,9 +76,9 @@ When an item is added, updated  or deleted the item service will broadcast the e
 
 Lumen supports several broadcast drivers out of the box: Pusher Channels, Redis, and a log driver for local development and debugging.
 
-This application using  [Pusher Channels](https://pusher.com/) to broadcase the event. 
+This application using  [Pusher Channels](https://pusher.com/) to broadcast the event. 
 
-if need test the public event message, can create new app in Pushed and update following  environment variables under the project root folder
+if need test the  event message, can create new app in Pusher and update following  environment variables under the project root folder
 ```
 PUSHER_APP_ID=your-pusher-app-id
 PUSHER_APP_KEY=your-pusher-key
@@ -90,7 +90,7 @@ Sample event message would like as following:
 ![alt text](./docs/ItemPubSubEvent.png "Pusher Event message sample")
 
 ## CI & Units Test
-This application using PHPUnit as unites test tools, the  test code is under api/test/ItemControllerTest.php 
+This application using PHPUnit as test tools, the test cases is under api/test/ItemControllerTest.php 
 
 It used a separate Mysql Database container (itemservice_db_test) to run the unit tests, so it will impact on the working database.
 
